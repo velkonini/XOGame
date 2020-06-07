@@ -1,6 +1,6 @@
 package xogame;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -42,6 +42,8 @@ public class BattleMap extends JPanel {
 
         if(!Logic.gameFinished){
             Logic.setHumanCoords(cellX, cellY);
+        } else {
+            Logic.aiTurn();
         }
 
 
@@ -83,6 +85,9 @@ public class BattleMap extends JPanel {
                 if(Logic.map[i][j]==Logic.DOT_X){
                     drawX(g, j, i);
                 }
+                if(Logic.map[i][j] == Logic.DOT_O){
+                    drawO(g, i, j);
+                }
             }
         }
 
@@ -91,13 +96,23 @@ public class BattleMap extends JPanel {
     }
 
     private void drawX(Graphics g, int cellX, int cellY) {
-//        g = (Graphics2D)g;
+        g = (Graphics2D)g;
 
-//        g.setColor(Color.red);
-////        g.drawLine(cellX * cellWidth, cellY * cellHeight,
-////                (cellX + 1) * cellWidth, (cellY + 1) * cellHeight);
-        Image XImage = new ImageIcon ("XImage").getImage();
-        g.drawImage(XImage, cellX, cellY, this);
+        g.setColor(Color.RED);
+        g.drawLine(cellX * cellWidth, cellY * cellHeight,
+                (cellX + 1) * cellWidth, (cellY + 1) * cellHeight);
+        g.drawLine(cellX * cellWidth, (cellY + 1) * cellHeight,
+                (cellX + 1) * cellWidth, cellY * cellHeight);
+
+
+    }
+
+
+    private void drawO(Graphics g, int cellX, int cellY){
+        g = (Graphics2D)g;
+
+        g.setColor(Color.BLUE);
+        g.fillOval(cellX * cellWidth , cellY * cellHeight, cellWidth, cellHeight);
     }
 
 
